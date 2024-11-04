@@ -39,3 +39,12 @@ In the project directory, create a .env file with the following contents:
 Replace your_email@gmail.com with your Gmail address.
 Generate an App Password if you have two-factor authentication enabled (see Gmail App Passwords).
 Replace recipient_email@gmail.com with the email address that should receive alerts.
+
+## Usage
+Run the monitoring script:
+
+```bash
+python monitor_api.py
+```
+The script will check the API status every minute and send an alert if the API is down.
+
