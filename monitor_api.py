@@ -3,14 +3,17 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import time
+import os
+from dotenv import load_dotenv
 
-# API endpoint to check
-api_url = 'http://localhost:5000/'
+# Load environment variables from .env file
+load_dotenv()
 
-# Email credentials and recipient
-email_from = 'navkaransinghhunjan@gmail.com'
-email_password = 'hvtw ypxx cyrg kglg'
-email_to = 'navkaranhunjan007@gmail.com'
+# Configuration from environment variables
+api_url = os.getenv("API_URL")
+email_from = os.getenv("EMAIL_FROM")
+email_password = os.getenv("EMAIL_PASSWORD")
+email_to = os.getenv("EMAIL_TO")
 
 def send_email_alert():
     """Sends an email alert if the API is down."""
@@ -20,7 +23,7 @@ def send_email_alert():
         msg['From'] = email_from
         msg['To'] = email_to
         msg['Subject'] = "Alert: API is down!"
-        body = "The API at {} is not responding.".format(api_url)
+        body = f"The API at {api_url} is not responding."
         msg.attach(MIMEText(body, 'plain'))
 
         # Setup the SMTP server
@@ -55,4 +58,4 @@ def check_api():
 # Check API every minute
 while True:
     check_api()
-    time.sleep(60) # checks for API status every 60 seconds (can be changed if wanted)
+    time.sleep(60)
